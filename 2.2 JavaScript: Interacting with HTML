@@ -1,0 +1,23 @@
+<html>
+  <script type="text/javascript" src="click.js"></script>
+  <body>
+    <div id="theNumber"></div>
+    <button id="buttonAdd">+</button>
+    <button id="buttonMinus">-</button>
+  </body>
+</html>
+
+document.addEventListener('DOMContentLoaded', function(event) {
+    const theNumber =   document.getElementById ("theNumber");                                
+    const buttonAdd =   document.getElementById ("buttonAdd");                               
+    const buttonMinus =  document.getElementById ("buttonMinus");                               
+  
+    buttonAdd.addEventListener("click", function() {
+        theNumber.innerHTML = parseInt(theNumber.innerHTML) + 1;
+    });
+
+    buttonMinus.addEventListener("click", function() {
+    theNumber.innerHTML = parseInt(theNumber.innerHTML) - 1;
+
+    });
+});
