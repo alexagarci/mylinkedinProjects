@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form>
+    <form>
+        <label for="color" id="color"> Favorite Color</label>
+        <input name="color"  id="textBox" type="text" value=""/>
+        <div>
+            <input id="buttonSubmit" type="submit" value="Submit">
+        </div>
+    </form>
+</form>
+</body>
+<script src="script.js">
+
+</script>
+
+</html>
+
+
+document.addEventListener('DOMContentLoaded', function(event) {
+    const buttonSubmit =   document.getElementById ("buttonSubmit");
+
+    // noinspection JSAnnotator
+    buttonSubmit.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        console.log("linkedin");
+
+        var input = document.getElementById("textBox").value;
+        if (input === "") {
+            alert("Error that is not valid!");
+        }
+        else {
+            console.log({"favColor": input});
+        }
+        return false;
+
+    });
+
+});
