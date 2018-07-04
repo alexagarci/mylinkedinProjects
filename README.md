@@ -1,3 +1,3 @@
-# mylinkedinwebsite
+# mylinkedinprojects
 
-My first week's project at linkedIn
+Labs and projects
