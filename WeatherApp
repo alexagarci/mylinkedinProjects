@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../styles/style.css" />
+    <script src="../scripts/script.js"></script>
+    <title>My Weather App</title>
+</head>
+<body>
+<form action="">
+    <select id="cities">
+        <option value="Sunnyvale, CA">Sunnyvale, CA</option>
+        <option value="San Francisco, CA">San Francisco, CA</option>
+        <option value="Miami, FL">Miami, FL</option>
+        <option value="New York, NY">New York, NY</option>
+        <option value="Seattle, WA">Seattle, WA</option>
+    </select>
+    <input type="submit" id="getWeatherBtn" value="Get Weather"/>
+</form>
+
+<div class="container">
+    <header id="cardHeader" class="header">Sunnyvale, CA - July 9, 2018</header>
+    <section id="cardTemp" class="section">78</section>
+    <footer id="cardWeather" class="footer"> Mostly Cloudy</footer>
+</div>
+
+</body>
+</html>
+
+document.addEventListener('DOMContentLoaded', function(event) {
+
+    const buttonSubmit = document.getElementById('getWeatherBtn');
+    buttonSubmit.addEventListener("click", function(ev) {
+        ev.preventDefault();
+        const dropdown =document.getElementById('cities');
+        const cityValue = dropdown.options[dropdown.selectedIndex].value;
+
+        const array = cityValue.split(',');
+        const city = array[0];
+        const state = array[1];
+        getWeatherInfo(city, state);
+    });
+
+    function getWeatherInfo(city, state) {
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                const weatherData = JSON.parse(this.responseText).query.results.channel.item.condition;
+                console.log(weatherData);
+                const header = document.getElementById('cardHeader');
+                header.innerHTML = `${city}, ${state} - ${weatherData.date}`;
+                const section = document.getElementById('cardTemp');
+                section.innerHTML = `${weatherData.temp}&deg;`;
+                const footer = document.getElementById('cardWeather');
+                footer.innerHTML = `${weatherData.text}`;
+            }
+        };
+
+        const url = `https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22${city}%2C%20${state}%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`;
+
+        xhttp.open("GET", url, true);
+
+        xhttp.send();
+    }
+});
+
+
+.container {
+
+    border-style: solid;
+    text-align: center;
+}
+
+.header {
+
+    border-bottom: double;
+}
+
